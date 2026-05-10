@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe - Create Post</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="logo"><i class="fa-solid fa-bolt"></i> Vibe</a>
+    <div class="nav-links" id="navLinks"></div>
+  </nav>
+
+  <div class="container">
+    <div class="create-post-card" style="margin-top: 2rem;">
+      <h3 style="margin-bottom: 1rem;">Create a New Vibe</h3>
+      <form id="standaloneCreatePostForm">
+        <textarea id="standalonePostContent" placeholder="What's your vibe today?" required></textarea>
+        <div class="create-post-actions">
+          <div class="file-input-wrapper">
+            <button type="button" class="btn btn-outline"><i class="fa-solid fa-image"></i> Image</button>
+            <input type="file" id="standalonePostImage" accept="image/*">
+          </div>
+          <button type="submit" class="btn">Post</button>
+        </div>
+        <div id="standaloneImagePreview" style="margin-top: 10px; color: var(--text-muted); font-size: 0.9rem;"></div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo"><i class="fa-solid fa-bolt"></i> Vibe</div>
+      <div class="copyright">&copy; 2026 Vibe Social Media App.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = getUser();
+      const token = getToken();
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      document.getElementById('standalonePostImage').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          document.getElementById('standaloneImagePreview').innerText = `Selected: ${file.name}`;
+        }
+      });
+
+      document.getElementById('standaloneCreatePostForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const content = document.getElementById('standalonePostContent').value;
+        const fileInput = document.getElementById('standalonePostImage');
+        const formData = new FormData();
+        formData.append('content', content);
+        if (fileInput.files[0]) {
+          formData.append('image', fileInput.files[0]);
+        }
+
+        try {
+          const res = await fetch(`${API_URL}/posts`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${token}` },
+            body: formData
+          });
+          if (res.ok) {
+            window.location.href = 'index.html';
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe - Profile</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="logo"><i class="fa-solid fa-bolt"></i> Vibe</a>
+    <div class="nav-links" id="navLinks"></div>
+  </nav>
+
+  <div class="container">
+    <div id="profileHeader">
+      <!-- Profile Header Injected Here -->
+    </div>
+
+    <div id="editProfileContainer" style="display: none; margin-bottom: 2rem;">
+      <div class="create-post-card">
+        <h3>Edit Profile</h3>
+        <form id="editProfileForm">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="editUsername" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Bio</label>
+            <textarea id="editBio" class="form-control" style="min-height: 80px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Profile Picture</label>
+            <input type="file" id="editAvatar" accept="image/*">
+          </div>
+          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button type="submit" class="btn">Save Changes</button>
+            <button type="button" onclick="toggleEditProfile()" class="btn btn-outline">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <h3 style="margin-bottom: 1rem;">Vibes</h3>
+    <div id="userPosts">
+      <div style="text-align: center; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo"><i class="fa-solid fa-bolt"></i> Vibe</div>
+      <div class="copyright">&copy; 2026 Vibe Social Media App.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>
